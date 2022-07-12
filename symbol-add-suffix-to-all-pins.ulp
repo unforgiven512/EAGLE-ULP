@@ -1,0 +1,14 @@
+#usage "<b>Rename all PINs in a symbol with a suffix</b><p>"
+       "RUN symbol-add-suffix-to-all-pins [suffix]<br>"
+       "<author>Author: <a href="mailto:gmunsch@unforgivendevelopment.com">Gerad Munsch</a></author>"
+
+// This ULP is provided AS IS and WITHOUT WARRANTY OF ANY KIND, EXPRESSED or IMPLIED.
+// It is hoped to be useful.
+//
+// It is intended to ease the process of adding a "suffix" to each pin in a symbol
+
+string Version = "Version 0.9";
+
+string fileName;
+
+string suffix = argv[1];

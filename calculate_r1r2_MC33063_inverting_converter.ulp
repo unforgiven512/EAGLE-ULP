@@ -1,0 +1,64 @@
+
+
+int hor = 1;
+int ver = 1;
+string  sTargetVoltage;
+real targetVoltage;
+
+UL_PART sResDivR1;
+UL_PART sResDivR2';
+string sResDivR1_PartPath;
+string sResDivR2_PartPath;
+string sResDivR1_PartName;
+string sResDivR2_PartName;
+string sResDivR1_PartValue;
+string sResDivR2_PartValue;
+
+int locateResDivParts(void) {
+	int retval = 1;
+	/* 
+	 * Iterate through all parts in the schematic, and identify the 2 specific resistors that
+	* comprise the voltage divider for hte MC33063 inverting converter.
+	*/
+	schematic(S) {
+		.allparts(P) {
+			if (P.attribute["MC33063_INV_VDIV_R1"]) {
+				sResDivR1 = P;
+				sResDivR1_PartPath = P.modulepath;
+				sResDivR1_PartName = P.name;
+			}
+
+			if (P.attribute["MC33063_INV_VDIV_R2"]) {
+				sResDivR2 = P;
+				sResDivR2_PartPath = P.modulepath;
+				sResDivR2_PartName = P.name;
+				retval = 0;
+			}
+		}
+	}
+			
+	return retval;
+}
+
+int inputSuccess = dlgDialog("Enter the desired voltage") {
+	dlgHBoxLayout {
+		dlgStretch(1);
+		dlgLabel("Enter the desired voltage for the MC33063 to produce:");
+		dlgStretch(1);
+	}
+	dlgSpacing(10);
+	dlgHBoxLayout {
+		dlgStretch(1);
+		dlgLabel("Enter the desired voltage for the MC33063 to produce:");
+		dlgStretch(1);
+	}
+	dlgSpacing(10);
+	dlgHBoxLayout {
+		dlgStretch(1);
+		dlgPushButton("+OK")	dlgAccept();
+		dlgPushButton("Cancel")	dlgReject();
+	}
+};
+
+
+targetValue = strtod(sTargetVoltage);
